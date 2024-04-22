@@ -20,7 +20,9 @@ df['tokenized_text'] = df['tokenized_text'].apply(lambda x: [word.lower() for wo
 # Remove non-alphanumeric tokens
 df['tokenized_text'] = df['tokenized_text'].apply(lambda x: [word for word in x if word.isalnum()])
 # Remove stopwords
-# TODO: Load Indonesian stopwords
+# Load Indonesian stopwords from stopwordbahasa.csv
+stopwords = pd.read_csv('stopwordbahasa.csv')
+df['tokenized_text'] = df['tokenized_text'].apply(lambda x: [word for word in x if word not in stopwords])
 
 # Display the first 5 rows of the dataset
 print("\nFirst 5 rows of the dataset after pre-processing:")
