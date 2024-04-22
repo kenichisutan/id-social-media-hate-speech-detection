@@ -50,3 +50,17 @@ df['tokenized_text'] = df['tokenized_text'].apply(lambda x: [word for word in x 
 # Display the first 5 rows of the dataset
 print("\nFirst 5 rows of the dataset after pre-processing:")
 print(df.head())
+
+# ----------------------------
+# DATA SPLITTING
+# ----------------------------
+print("\nSplitting the dataset into training and testing sets...")
+
+# Split the dataset into training and testing sets (80% training, 20% testing)
+train_size = int(0.8 * len(df))
+train_df = df[:train_size]
+test_df = df[train_size:]
+
+# Display the shape of the training and testing sets
+print("\nShape of the training set:", train_df.shape)
+print("Shape of the testing set:", test_df.shape)
