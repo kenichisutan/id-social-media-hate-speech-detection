@@ -1,8 +1,31 @@
 import pandas as pd
 from nltk.tokenize import word_tokenize
 
+
+# ----------------------------
+# LOAD DATASET
+# ----------------------------
+print("Loading the dataset...")
+
+# Dataset information:
+'''
+It consists of 713 tweets in Indonesian
+
+Number of Non_HS tweets: 453
+Number of HS tweets: 260.
+Since this dataset is unbalanced, you might have to do over-sampling/down-sampling in order to create a balanced dataset.
+'''
+
 # Load dataset IDHSD_RIO_unbalanced_713_2017.txt
 df = pd.read_csv('IDHSD_RIO_unbalanced_713_2017.txt', sep='\t', encoding='ISO-8859-1')
+# Downsample the Non-HS tweets to 260
+df_non_hs = df[df['Label'] == "Non_HS"].sample(n=260, random_state=42)
+# Downsample the HS tweets to 260 (same amount)
+df_hs = df[df['Label'] == "HS"].sample(n=260, random_state=42)
+# Concatenate the downsampled Non-HS and HS tweets
+df = pd.concat([df_non_hs, df_hs])
+# Shuffle the dataset
+df = df.sample(frac=1, random_state=42).reset_index(drop=True)
 
 # Display the first 5 rows of the dataset
 print("First 5 rows of the dataset:")
