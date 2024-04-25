@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 from nltk.tokenize import word_tokenize
 from sklearn.feature_extraction.text import CountVectorizer
@@ -206,6 +207,10 @@ results = {
 results['Accuracy'] = accuracy
 results_df = pd.DataFrame(results)
 
+# Create results directory if it does not exist
+if not os.path.exists('results'):
+    os.makedirs('results')
+
 # Save results title with date and time
-results_title = "results_" + pd.Timestamp.now().strftime("%Y-%m-%d_%H-%M-%S") + ".csv"
+results_title = "results/results_" + pd.Timestamp.now().strftime("%Y-%m-%d_%H-%M-%S") + ".csv"
 results_df.to_csv(results_title, index=False)
