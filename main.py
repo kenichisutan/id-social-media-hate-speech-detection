@@ -149,3 +149,13 @@ plt.xlabel('Predicted Label')
 plt.ylabel('True Label')
 plt.title('Confusion Matrix')
 plt.show()
+
+# ----------------------------
+# PREDICTION
+# ----------------------------
+print("\nMaking predictions on new data...")
+new_data = ['saya suka kamu', 'anjing bangsat']
+new_data = vectorizer.transform(new_data)
+new_pred = clf.predict(new_data)
+print("\nPredictions on new data:")
+print(new_pred)
