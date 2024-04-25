@@ -218,6 +218,6 @@ results_df = pd.DataFrame(results)
 if not os.path.exists('results'):
     os.makedirs('results')
 
-# Save results title with date and time
-results_title = "results/results_" + pd.Timestamp.now().strftime("%Y-%m-%d_%H-%M-%S") + ".csv"
+# Save results title with accuracy, date and time
+results_title = f"results/results_{accuracy:.4f}-" + pd.Timestamp.now().strftime("%Y-%m-%d_%H-%M-%S") + ".csv"
 results_df.to_csv(results_title, index=False)
