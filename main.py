@@ -166,17 +166,22 @@ wrong_predicted_values = y_pred[wrong_indices]
 wrong_actual_texts = vectorizer.inverse_transform(X_test[wrong_indices])
 wrong_actual_texts = [' '.join(text) for text in wrong_actual_texts]
 
-# Create a DataFrame to store wrong predictions and actual values
-wrong_data = {
+# Retrieve pre-processed wrong predictions from test data
+wrong_preprocessed_texts = test_df.iloc[wrong_indices]['Tweet'].values
+
+# Create a DataFrame to store wrong predictions, pre-processed texts, and actual values
+wrong_data_with_preprocessed = {
+    'preprocessed_text': wrong_preprocessed_texts,
     'actual_text': wrong_actual_texts,
     'actual_value': wrong_actual_values.values,
     'predicted_value': wrong_predicted_values
 }
-wrong_df = pd.DataFrame(wrong_data)
+wrong_df_with_preprocessed = pd.DataFrame(wrong_data_with_preprocessed)
 
-# Display wrong predictions with actual and predicted values
-print("\nWrong predictions:")
-for index, row in wrong_df.iterrows():
+# Display wrong predictions with pre-processed texts, actual and predicted values
+print("\nWrong predictions with pre-processed texts:")
+for index, row in wrong_df_with_preprocessed.iterrows():
+    print(f"Preprocessed Text: {row['preprocessed_text']}")
     print(f"Actual Text: {row['actual_text']}")
     print(f"Actual Value: {row['actual_value']}, Predicted Value: {row['predicted_value']}")
     print("-" * 50)
