@@ -187,7 +187,8 @@ for index, row in wrong_df.iterrows():
 # ----------------------------
 print("\nMaking predictions on new data...")
 new_data = ['saya suka kamu', 'anjing bangsat']
-new_data = vectorizer.transform(new_data)
-new_pred = clf.predict(new_data)
+new_data_vect = vectorizer.transform(new_data)
+new_pred = clf.predict(new_data_vect)
 print("\nPredictions on new data:")
-print(new_pred)
+print("New data:", new_data)
+print("Predictions:", new_pred)
