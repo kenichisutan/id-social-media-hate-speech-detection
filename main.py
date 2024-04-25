@@ -169,7 +169,7 @@ wrong_actual_texts = [' '.join(text) for text in wrong_actual_texts]
 # Retrieve pre-processed wrong predictions from test data
 wrong_preprocessed_texts = test_df.iloc[wrong_indices]['Tweet'].values
 
-# Create a DataFrame to store wrong predictions, pre-processed texts, and actual values
+# Create a DataFrame to store wrong predictions, actual texts, pre-processed texts, and predicted values
 wrong_data_with_preprocessed = {
     'preprocessed_text': wrong_preprocessed_texts,
     'actual_text': wrong_actual_texts,
@@ -178,14 +178,13 @@ wrong_data_with_preprocessed = {
 }
 wrong_df_with_preprocessed = pd.DataFrame(wrong_data_with_preprocessed)
 
-# Display wrong predictions with pre-processed texts, actual and predicted values
-print("\nWrong predictions with pre-processed texts:")
+# Display wrong predictions with actual texts, pre-processed texts, actual, and predicted values
+print("\nWrong predictions with actual and pre-processed texts:")
 for index, row in wrong_df_with_preprocessed.iterrows():
     print(f"Preprocessed Text: {row['preprocessed_text']}")
     print(f"Actual Text: {row['actual_text']}")
     print(f"Actual Value: {row['actual_value']}, Predicted Value: {row['predicted_value']}")
     print("-" * 50)
-
 
 # ----------------------------
 # PREDICTION
