@@ -1,6 +1,7 @@
 import pandas as pd
 from nltk.tokenize import word_tokenize
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.linear_model import LogisticRegression
 
 # ----------------------------
 # LOAD DATASET
@@ -110,3 +111,20 @@ print("\nShape of the training data:", X_train.shape)
 print("Shape of the testing data:", X_test.shape)
 print("Shape of y_train:", y_train.shape)
 print("Shape of y_test:", y_test.shape)
+
+# ----------------------------
+# CLASSIFICATION
+# ----------------------------
+print("\nTraining the classification model...")
+
+# Initialize Logistic Regression model
+clf = LogisticRegression(max_iter=10000, random_state=42)
+
+# Train model
+clf.fit(X_train, y_train)
+
+# Predict
+y_pred = clf.predict(X_test)
+
+print("\nPredictions:")
+print(y_pred)
