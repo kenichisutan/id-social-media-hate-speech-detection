@@ -46,8 +46,11 @@ print("\nTokenized text:\n", df[ 'tokenized_text' ].head())
 # Lowercasing
 df[ 'tokenized_text' ] = df[ 'tokenized_text' ].apply(lambda x: [ word.lower() for word in x ])
 print("\nLowercased text:\n", df[ 'tokenized_text' ].head())
-# Remove non-alphanumeric tokens
-df[ 'tokenized_text' ] = df[ 'tokenized_text' ].apply(lambda x: [ word for word in x if word.isalnum() ])
+# # Remove non-alphanumeric tokens
+# df[ 'tokenized_text' ] = df[ 'tokenized_text' ].apply(lambda x: [ word for word in x if word.isalnum() ])
+# print("\nText with alphanumeric tokens:\n", df[ 'tokenized_text' ].head())
+# Remove tokens with only non-alphanumeric characters
+df[ 'tokenized_text' ] = df[ 'tokenized_text' ].apply(lambda x: [ word for word in x if any(char.isalnum() for char in word) ])
 print("\nText with alphanumeric tokens:\n", df[ 'tokenized_text' ].head())
 # Remove stopwords
 # Load Indonesian stopwords from stopwordbahasa.csv
