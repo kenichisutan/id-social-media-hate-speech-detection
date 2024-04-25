@@ -151,6 +151,38 @@ plt.title('Confusion Matrix')
 plt.show()
 
 # ----------------------------
+# INCORRECT PREDICTIONS
+# ----------------------------
+print("\nDisplaying incorrect predictions...")
+# Find indices where predicted values do not match actual values
+wrong_indices = [i for i in range(len(y_test)) if y_test.iloc[i] != y_pred[i]]
+
+# Retrieve wrong predictions from test data
+wrong_predictions = test_df.iloc[wrong_indices]
+wrong_actual_values = y_test.iloc[wrong_indices]
+wrong_predicted_values = y_pred[wrong_indices]
+
+# Convert vectorized wrong predictions back to text
+wrong_actual_texts = vectorizer.inverse_transform(X_test[wrong_indices])
+wrong_actual_texts = [' '.join(text) for text in wrong_actual_texts]
+
+# Create a DataFrame to store wrong predictions and actual values
+wrong_data = {
+    'actual_text': wrong_actual_texts,
+    'actual_value': wrong_actual_values.values,
+    'predicted_value': wrong_predicted_values
+}
+wrong_df = pd.DataFrame(wrong_data)
+
+# Display wrong predictions with actual and predicted values
+print("\nWrong predictions:")
+for index, row in wrong_df.iterrows():
+    print(f"Actual Text: {row['actual_text']}")
+    print(f"Actual Value: {row['actual_value']}, Predicted Value: {row['predicted_value']}")
+    print("-" * 50)
+
+
+# ----------------------------
 # PREDICTION
 # ----------------------------
 print("\nMaking predictions on new data...")
