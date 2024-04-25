@@ -196,3 +196,16 @@ plt.xlabel('Predicted Label')
 plt.ylabel('True Label')
 plt.title('Confusion Matrix')
 plt.show()
+
+# Save results to a CSV file
+results = {
+    'Actual': y_test,
+    'Predicted': y_pred
+}
+# Add accuracy to results
+results['Accuracy'] = accuracy
+results_df = pd.DataFrame(results)
+
+# Save results title with date and time
+results_title = "results_" + pd.Timestamp.now().strftime("%Y-%m-%d_%H-%M-%S") + ".csv"
+results_df.to_csv(results_title, index=False)
