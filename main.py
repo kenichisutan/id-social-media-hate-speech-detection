@@ -133,24 +133,6 @@ print("\nPredictions:")
 print(y_pred)
 
 # ----------------------------
-# EVALUATION
-# ----------------------------
-print("\nEvaluating the classification model...")
-
-# Calculate accuracy
-accuracy = accuracy_score(y_test, y_pred)
-print(f"Accuracy: {accuracy*100:.2f}%")
-
-# Display the confusion matrix
-cm = confusion_matrix(y_test, y_pred)
-plt.figure(figsize=(8, 6))
-sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=["Non_HS", "HS"], yticklabels=["Non_HS", "HS"])
-plt.xlabel('Predicted Label')
-plt.ylabel('True Label')
-plt.title('Confusion Matrix')
-plt.show()
-
-# ----------------------------
 # INCORRECT PREDICTIONS
 # ----------------------------
 print("\nDisplaying incorrect predictions...")
@@ -196,3 +178,21 @@ new_pred = clf.predict(new_data_vect)
 print("\nPredictions on new data:")
 print("New data:", new_data)
 print("Predictions:", new_pred)
+
+# ----------------------------
+# EVALUATION
+# ----------------------------
+print("\nEvaluating the classification model...")
+
+# Calculate accuracy
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy*100:.2f}%")
+
+# Display the confusion matrix
+cm = confusion_matrix(y_test, y_pred)
+plt.figure(figsize=(8, 6))
+sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=["Non_HS", "HS"], yticklabels=["Non_HS", "HS"])
+plt.xlabel('Predicted Label')
+plt.ylabel('True Label')
+plt.title('Confusion Matrix')
+plt.show()
