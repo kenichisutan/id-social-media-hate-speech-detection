@@ -2,6 +2,9 @@ import pandas as pd
 from nltk.tokenize import word_tokenize
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix, accuracy_score
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 # ----------------------------
 # LOAD DATASET
@@ -128,3 +131,21 @@ y_pred = clf.predict(X_test)
 
 print("\nPredictions:")
 print(y_pred)
+
+# ----------------------------
+# EVALUATION
+# ----------------------------
+print("\nEvaluating the classification model...")
+
+# Calculate accuracy
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy*100:.2f}%")
+
+# Display the confusion matrix
+cm = confusion_matrix(y_test, y_pred)
+plt.figure(figsize=(8, 6))
+sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=["Non_HS", "HS"], yticklabels=["Non_HS", "HS"])
+plt.xlabel('Predicted Label')
+plt.ylabel('True Label')
+plt.title('Confusion Matrix')
+plt.show()
