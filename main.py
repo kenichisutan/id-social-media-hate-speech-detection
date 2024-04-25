@@ -1,5 +1,6 @@
 import pandas as pd
 from nltk.tokenize import word_tokenize
+from sklearn.feature_extraction.text import CountVectorizer
 
 # ----------------------------
 # LOAD DATASET
@@ -84,3 +85,28 @@ for index, row in train_df.iterrows():
 print("\nTerm frequency values for the training set:")
 print(train_tf[ 'HS' ])
 print(train_tf[ 'Non_HS' ])
+
+# ----------------------------
+# VECTORIZE TEXT DATA
+# ----------------------------
+print("\nVectorizing text data...")
+
+# Combine tokenized text back into strings for vectorization
+train_df['clean_text'] = train_df['tokenized_text'].apply(lambda x: ' '.join(x))
+test_df['clean_text'] = test_df['tokenized_text'].apply(lambda x: ' '.join(x))
+
+# Create CountVectorizer
+vectorizer = CountVectorizer()
+
+# Fit and transform the training data
+X_train = vectorizer.fit_transform(train_df['clean_text'])
+y_train = train_df['Label']
+
+# Transform the testing data
+X_test = vectorizer.transform(test_df['clean_text'])
+y_test = test_df['Label']
+
+print("\nShape of the training data:", X_train.shape)
+print("Shape of the testing data:", X_test.shape)
+print("Shape of y_train:", y_train.shape)
+print("Shape of y_test:", y_test.shape)
