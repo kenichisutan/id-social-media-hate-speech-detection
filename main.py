@@ -216,8 +216,11 @@ results = {
     'Actual': y_test,
     'Predicted': y_pred
 }
-# Add accuracy to results
+# Add accuracy, precision, recall, and F1-score to the results
 results['Accuracy'] = accuracy
+results['Precision'] = precision
+results['Recall'] = recall
+results['F1-score'] = f1_score
 results_df = pd.DataFrame(results)
 
 # Create results directory if it does not exist
