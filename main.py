@@ -180,7 +180,8 @@ for index, row in wrong_df_with_preprocessed.iterrows():
 # PREDICTION
 # ----------------------------
 print("\nMaking predictions on new data...")
-new_data = ['saya suka kamu', 'anjing bangsat']
+new_data = ['saya suka kamu',
+            'ahok mmg mulut sampah provokator paling bangsat']
 new_data_vect = vectorizer.transform(new_data)
 new_pred = clf.predict(new_data_vect)
 print("\nPredictions on new data:")
