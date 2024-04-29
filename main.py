@@ -3,7 +3,7 @@ import pandas as pd
 from nltk.tokenize import word_tokenize
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import confusion_matrix, accuracy_score
+from sklearn.metrics import confusion_matrix, accuracy_score, precision_recall_fscore_support
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -195,6 +195,12 @@ print("\nEvaluating the classification model...")
 # Calculate accuracy
 accuracy = accuracy_score(y_test, y_pred)
 print(f"Accuracy: {accuracy*100:.2f}%")
+
+# Calculate precision, recall, and F1-score
+precision, recall, f1_score, _ = precision_recall_fscore_support(y_test, y_pred, average='binary', pos_label='HS')
+print(f"Precision: {precision*100:.2f}%")
+print(f"Recall: {recall*100:.2f}%")
+print(f"F1-score: {f1_score*100:.2f}%")
 
 # Display the confusion matrix
 cm = confusion_matrix(y_test, y_pred)
