@@ -160,8 +160,10 @@ def eval(y_pred, y_test):
 
     return accuracy, precision, recall, f1_score
 
+iterations = 100
 avg_accuracy, avg_precision, avg_recall, avg_f1_score = 0, 0, 0, 0
-for i in range(10):
+y_test, y_pred = None, None
+for i in range(iterations):
     print(f"\nIteration {i+1}:")
     # Train the model
     y_pred, y_test, test_df, vectorizer, clf = train()
@@ -173,10 +175,19 @@ for i in range(10):
     avg_f1_score += f1_score
 
 # Calculate average accuracy, precision, recall, and F1-score
-avg_accuracy /= 10
-avg_precision /= 10
-avg_recall /= 10
-avg_f1_score /= 10
+avg_accuracy /= iterations
+avg_precision /= iterations
+avg_recall /= iterations
+avg_f1_score /= iterations
+
+# Plot confusion matrix
+cm = confusion_matrix(y_test, y_pred)
+plt.figure(figsize=(10, 7))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=['Non_HS', 'HS'], yticklabels=['Non_HS', 'HS'])
+plt.xlabel('Predicted labels')
+plt.ylabel('True labels')
+plt.title('Confusion Matrix')
+plt.show()
 
 print("\nAverage metrics:")
 print(f"Average Accuracy: {avg_accuracy*100:.2f}%")
