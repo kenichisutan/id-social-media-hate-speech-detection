@@ -1,4 +1,6 @@
 import os
+import random
+
 import pandas as pd
 from nltk.tokenize import word_tokenize
 from sklearn.feature_extraction.text import CountVectorizer
@@ -22,16 +24,18 @@ def train():
     Since this dataset is unbalanced, you might have to do over-sampling/down-sampling in order to create a balanced dataset.
     '''
 
+    # Generate a random number between 0 and 100
+    random_state_non_hs = random.randint(0, 100)
+    random_state_hs = random.randint(0, 100)
+
     # Load dataset IDHSD_RIO_unbalanced_713_2017.txt
     df = pd.read_csv('IDHSD_RIO_unbalanced_713_2017.txt', sep='\t', encoding='ISO-8859-1')
     # Downsample the Non-HS tweets to 260
-    df_non_hs = df[ df[ 'Label' ] == "Non_HS" ].sample(n=260, random_state=42)
+    df_non_hs = df[ df[ 'Label' ] == "Non_HS" ].sample(n=260, random_state=random_state_non_hs)
     # Downsample the HS tweets to 260 (same amount)
-    df_hs = df[ df[ 'Label' ] == "HS" ].sample(n=260, random_state=42)
+    df_hs = df[ df[ 'Label' ] == "HS" ].sample(n=260, random_state=random_state_hs)
     # Concatenate the downsampled Non-HS and HS tweets
     df = pd.concat([ df_non_hs, df_hs ])
-    # Shuffle the dataset
-    df = df.sample(frac=1, random_state=42).reset_index(drop=True)
 
     # Display the first 5 rows of the dataset
     print("First 5 rows of the dataset:")
@@ -75,7 +79,8 @@ def train():
 
     # Split the dataset into training and testing sets (80% training, 20% testing)
     # Randomly shuffle the dataset
-    df = df.sample(frac=1, random_state=42).reset_index(drop=True)
+    random_state_split = random.randint(0, 100)
+    df = df.sample(frac=1, random_state=random_state_split).reset_index(drop=True)
     # Split the dataset
     train_size = int(0.8 * len(df))
     train_df = df[ :train_size ]
@@ -160,13 +165,16 @@ def eval(y_pred, y_test):
 
     return accuracy, precision, recall, f1_score
 
+
 iterations = 100
 avg_accuracy, avg_precision, avg_recall, avg_f1_score = 0, 0, 0, 0
-y_test, y_pred = None, None
+y_test_total, y_pred_total = [], []
 for i in range(iterations):
     print(f"\nIteration {i+1}:")
     # Train the model
     y_pred, y_test, test_df, vectorizer, clf = train()
+    y_test_total.extend(y_test)
+    y_pred_total.extend(y_pred)
     # Evaluate the model
     accuracy, precision, recall, f1_score = eval(y_pred, y_test)
     avg_accuracy += accuracy
@@ -181,7 +189,7 @@ avg_recall /= iterations
 avg_f1_score /= iterations
 
 # Plot confusion matrix
-cm = confusion_matrix(y_test, y_pred)
+cm = confusion_matrix(y_test_total, y_pred_total)
 plt.figure(figsize=(10, 7))
 sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=['Non_HS', 'HS'], yticklabels=['Non_HS', 'HS'])
 plt.xlabel('Predicted labels')
