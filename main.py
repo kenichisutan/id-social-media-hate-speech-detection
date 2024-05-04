@@ -71,6 +71,9 @@ print(df.head())
 print("\nSplitting the dataset into training and testing sets...")
 
 # Split the dataset into training and testing sets (80% training, 20% testing)
+# Randomly shuffle the dataset
+df = df.sample(frac=1, random_state=42).reset_index(drop=True)
+# Split the dataset
 train_size = int(0.8 * len(df))
 train_df = df[ :train_size ]
 test_df = df[ train_size: ]
