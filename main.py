@@ -46,6 +46,8 @@ df[ 'tokenized_text' ] = df[ 'Tweet' ].apply(word_tokenize)
 print("\nTokenized text:\n", df[ 'tokenized_text' ].head())
 # If the current token is a #, remove the current token and the next token
 df[ 'tokenized_text' ] = df[ 'tokenized_text' ].apply(lambda x: [ x[i] for i in range(len(x)) if x[i] != '#' and (i == 0 or x[i-1] != '#') ])
+# If the current token is a @, remove the current token and the next token
+df[ 'tokenized_text' ] = df[ 'tokenized_text' ].apply(lambda x: [ x[i] for i in range(len(x)) if x[i] != '@' and (i == 0 or x[i-1] != '@') ])
 # Lowercasing
 df[ 'tokenized_text' ] = df[ 'tokenized_text' ].apply(lambda x: [ word.lower() for word in x ])
 print("\nLowercased text:\n", df[ 'tokenized_text' ].head())
